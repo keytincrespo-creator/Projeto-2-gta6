@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vice City Chronicles - Tudo sobre GTA 6</title>
+    <style>
+        /* Variáveis de cores inspiradas no visual Neon e Pôr do Sol de GTA 6 */
+        :root {
+            --bg-body: #0d0e15;
+            --bg-container: #16192b;
+            --bg-header: #1f1435;
+            --accent-pink: #ff007f; /* Rosa choque neon */
+            --accent-orange: #ff6a00; /* Rosa alaranjado / Pôr do sol */
+            --accent-blue: #00f0ff; /* Azul Ciano / Neon */
+            --text-main: #f1f1f6;
+            --text-muted: #a3a7c1;
+            --border-color: #ff007f; /* Rosa para o contorno principal */
+            --shadow-color: rgba(255, 0, 127, 0.2);
+            --button-bg: #22263f;
+            --button-hover: #2e3458;
+        }
+
+        [data-theme="light"] {
+            --bg-body: #f0f2f9;
+            --bg-container: #ffffff;
+            --bg-header: #fce4ec;
+            --accent-pink: #d81b60;
+            --accent-orange: #f4511e;
+            --accent-blue: #00acc1;
+            --text-main: #212121;
+            --text-muted: #666666;
+            --border-color: #ff4081;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --button-bg: #eeeeee;
+            --button-hover: #e0e0e0;
+        }
+
+        /* Configurações Gerais */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            line-height: 1.6;
+        }
+
+        /* Barra de Acessibilidade / Controles */
+        .top-bar {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 10px 16px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .theme-toggle {
+            background-color: var(--button-bg);
+            color: var(--text-main);
+            border: 1px solid var(--accent-blue);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+            box-shadow: 0 0 8px var(--shadow-color);
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--button-hover);
+            border-color: var(--accent-orange);
+        }
+
+        /* Cabeçalho */
+        header {
+            background: linear-gradient(135deg, var(--bg-header) 0%, #110924 100%);
+            color: #ffffff;
+            text-align: center;
+            max-width: 1000px;
+            margin: 0 auto 20px auto;
+            padding: 40px 16px;
+            border-radius: 12px;
+            border: 2px solid var(--accent-pink);
+            box-shadow: 0 4px 15px var(--shadow-color), inset 0 0 20px rgba(0, 240, 255, 0.2);
+            box-sizing: border-box;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 4px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-pink), var(--accent-orange));
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin: 0 0 10px 0;
+            font-weight: 900;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-pink), var(--accent-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(255, 0, 127, 0.5);
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin: 0;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Layout Principal */
+        .blog-container {
+            max-width: 1000px;
+            margin: 0 auto 40px auto;
+            display: flex;
+            gap: 20px;
+            padding: 20px;
+            box-sizing: border-box;
+            border: 3px solid var(--border-color);
+            border-radius: 16px;
+            background-color: rgba(255, 0, 127, 0.02);
+            box-shadow: 0 0 15px rgba(255, 0, 127, 0.05);
+        }
+
+        main {
+            background-color: var(--bg-container);
+            flex: 3;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            box-sizing: border-box;
+        }
+
+        aside {
+            background-color: var(--bg-container);
+            flex: 1;
+            padding: 24px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            box-sizing: border-box;
+            height: fit-content;
+            border: 1px solid rgba(0, 240, 255, 0.2);
+        }
+
+        aside h3 {
+            margin-top: 0;
+            border-bottom: 2px solid var(--accent-orange);
+            padding-bottom: 8px;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Posts - Nova Estrutura Vertical */
+        article {
+            display: flex;
+            flex-direction: column; /* Organiza verticalmente a imagem e o texto */
+            gap: 0; /* Remove o espaço entre imagem e texto para parecer um bloco */
+            padding: 24px 0;
+            border-bottom: 1px solid rgba(163, 167, 193, 0.2);
+            overflow: hidden; /* Garante que a imagem respeite as bordas */
+        }
+
+        article:last-of-type {
+            border-bottom: none;
+        }
+
+        /* Nova Classe para o contêiner da imagem */
+        .post-image-box {
+            width: 100%;
+            height: auto;
+            max-height: 400px; /* Limita a altura para não ficar gigante */
+            overflow: hidden;
+            border-radius: 12px 12px 0 0; /* Bordas arredondadas apenas em cima */
+            border: 2px solid var(--accent-orange);
+            box-shadow: 0 0 12px var(--shadow-color);
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Faz a imagem preencher o espaço sem distorcer */
+            background-color: #222; /* Fundo caso a imagem falhe */
+        }
+
+        /* Nova Classe para o bloco de texto abaixo da imagem */
+        .post-text-content {
+            background-color: rgba(255, 255, 255, 0.03); /* Fundo sutil para destacar o texto */
+            padding: 20px;
+            border-radius: 0 0 12px 12px; /* Bordas arredondadas apenas embaixo */
+            border: 2px solid rgba(255, 106, 0, 0.3); /* Contorno sutil laranja */
+            border-top: none; /* Remove a borda de cima para emendar na imagem */
+            margin-top: -2px; /* Emenda a caixa de texto na borda da imagem */
+        }
+
+        [data-theme="light"] .post-text-content {
+            background-color: rgba(0, 0, 0, 0.01);
+        }
+
+        article h2 {
+            font-size: 1.6rem;
+            margin: 0 0 8px 0;
+            color: var(--accent-blue);
+        }
+
+        .artigo-autor {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--accent-orange);
+            margin: 0 0 12px 0;
+        }
+
+        /* Botões de Reação */
+        .reactions {
+            display: flex;
+            gap: 10px;
+            margin: 15px 0; /* Margem em cima e embaixo */
+        }
+
+        .reactions button {
+            background-color: var(--button-bg);
+            color: var(--text-main);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: transform 0.1s, background-color 0.2s, border-color 0.2s;
+        }
+
+        .reactions button:hover {
+            background-color: var(--button-hover);
+            transform: scale(1.05);
+            border-color: var(--accent-pink);
+        }
+
+        /* Comentários */
+        .comments-section {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+            border: 1px dashed var(--accent-blue);
+        }
+
+        .comments-list {
+            margin-bottom: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .comment-item {
+            font-size: 0.95rem;
+            padding: 8px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 5px;
+        }
+
+        .comment-item strong {
+            color: var(--accent-orange);
+        }
+
+        .comment-form {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .comment-form input, .comment-form textarea {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px;
+            border-radius: 6px;
+            font-family: inherit;
+        }
+
+        .comment-form button {
+            align-self: flex-end;
+            background: linear-gradient(45deg, var(--accent-pink), var(--accent-orange));
+            color: #ffffff;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        @media (max-width: 800px) {
+            .blog-container { flex-direction: column; padding: 10px; }
+            .reactions { justify-content: center; }
+            header h1 { font-size: 2.2rem; }
+            .post-image-box { max-height: 250px; } /* Imagem menor no celular */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <button class="theme-toggle" id="toggleTheme">☀️ Modo Claro</button>
+    </div>
+
+    <header>
+        <h1>Vice City Chronicles</h1>
+        <p>A sua central de notícias e teorias sobre o aguardado GTA 6</p>
+    </header>
+
+    <div class="blog-container">
+        <main>
+            <article>
+                <div class="post-image-box">
+                    <img src="imagem1.png" alt="Espaço para imagem do mapa de Vice City">
+                </div>
+                
+                <div class="post-text-content">
+                    <h2>De volta a Vice City: O impacto do novo mapa</h2>
+                    <p class="artigo-autor">Por: Kauan Cabral</p>
+                    <p>O retorno triunfal a <strong>Vice City</strong> promete expandir tudo o que conhecemos. O estado de Leonida trará praias hiperdetalhadas, pântanos perigosos e uma cidade iluminada por luzes neon.</p>
+                    <p>A fidelidade gráfica recria perfeitamente o pôr do sol clássico em tons rosa alaranjado, elevando a experiência de mundo aberto a outro nível na nova geração.</p>
+                </div>
+
+                <div class="reactions">
+                    <button class="like-btn">🔥 <span>0</span></button>
+                    <button class="like-btn">👍 <span>0</span></button>
+                    <button class="like-btn">👎 <span>0</span></button>
+                    <button class="toggle-comments-btn">💬 Comentários (<span class="comment-count">0</span>)</button>
+                </div>
+                <div class="comments-section" style="display: none;">
+                    <div class="comments-list"></div>
+                    <form class="comment-form" onsubmit="adicionarComentario(event, this)">
+                        <input type="text" placeholder="Seu nickname..." required>
+                        <textarea placeholder="Comente sobre o mapa aqui..." rows="2" required></textarea>
+                        <button type="submit">Enviar</button>
+                    </form>
+                </div>
+            </article>
+
+            <article>
+                <div class="post-image-box">
+                    <img src="imagem2.png" alt="Espaço para imagem dos protagonistas">
+                </div>
+                
+                <div class="post-text-content">
+                    <h2>Lucia e Jason: O casal do crime moderno</h2>
+                    <p class="artigo-autor">Por: Kauan Cabral</p>
+                    <p>A história será focada na dinâmica de <strong>Lucia e Jason</strong>. Inspirados no estilo Bonnie e Clyde, o casal enfrentará o submundo do crime enquanto lidam com mistérios locais e a influência da era das redes sociais.</p>
+                </div>
+
+                <div class="reactions">
+                    <button class="like-btn">❤️ <span>0</span></button>
+                    <button class="like-btn">👍 <span>0</span></button>
+                    <button class="like-btn">👎 <span>0</span></button>
+                    <button class="toggle-comments-btn">💬 Comentários (<span class="comment-count">0</span>)</button>
+                </div>
+                <div class="comments-section" style="display: none;">
+                    <div class="comments-list"></div>
+                    <form class="comment-form" onsubmit="adicionarComentario(event, this)">
+                        <input type="text" placeholder="Seu nickname..." required>
+                        <textarea placeholder="O que achou dos protagonistas?..." rows="2" required></textarea>
+                        <button type="submit">Enviar</button>
+                    </form>
+                </div>
+            </article>
+
+            <article>
+                <div class="post-image-box">
+                    <img src="imagem3.png" alt="Espaço para imagem dos consoles/lançamento">
+                </div>
+                
+                <div class="post-text-content">
+                    <h2>Janela de Lançamento e Plataformas</h2>
+                    <p class="artigo-autor">Por: Kauan Cabral</p>
+                    <p>O jogo está confirmado para os consoles de nova geração: <strong>PlayStation 5</strong> e <strong>Xbox Series X|S</strong>. A versão de PC deverá chegar um pouco depois, como é o padrão de otimização da empresa.</p>
+                </div>
+
+                <div class="reactions">
+                    <button class="like-btn">⭐ <span>0</span></button>
+                    <button class="like-btn">👍 <span>0</span></button>
+                    <button class="like-btn">👎 <span>0</span></button>
+                    <button class="toggle-comments-btn">💬 Comentários (<span class="comment-count">0</span>)</button>
+                </div>
+                <div class="comments-section" style="display: none;">
+                    <div class="comments-list"></div>
+                    <form class="comment-form" onsubmit="adicionarComentario(event, this)">
+                        <input type="text" placeholder="Seu nickname..." required>
+                        <textarea placeholder="Em qual plataforma vai jogar?..." rows="2" required></textarea>
+                        <button type="submit">Enviar</button>
+                    </form>
+                </div>
+            </article>
+        </main>
+
+        <aside>
+            <h3>Sobre o Blog</h3>
+            <p>Bem-vindo ao <strong>Vice City Chronicles</strong>! O espaço perfeito para acompanhar as novidades do game mais aguardado de todos os tempos.</p>
+            <h3>Autoria</h3>
+            <p style="font-weight: bold; margin-bottom: 5px;">Kauan Cabral</p>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0;">Criador de conteúdo focado no universo de jogos de mundo aberto e mistérios da franquia.</p>
+        </aside>
+    </div>
+
+    <script>
+        // Sistema de Curtidas/Reações
+        const botoesCurtir = document.querySelectorAll(".like-btn");
+        botoesCurtir.forEach(function(botao){
+            let curtiu = false;
+            botao.addEventListener("click", function(){
+                let texto = botao.querySelector("span");
+                if (!curtiu){
+                    texto.textContent++;
+                    curtiu = true;
+                } else {
+                    texto.textContent--;
+                    curtiu = false;
+                }
+            });
+        });
+
+        // Mostrar/Ocultar Comentários
+        const botoesComentario = document.querySelectorAll(".toggle-comments-btn");
+        botoesComentario.forEach(function(botao) {
+            botao.addEventListener("click", function() {
+                const artigo = botao.closest("article");
+                const caixaComentarios = artigo.querySelector(".comments-section");
+                caixaComentarios.style.display = caixaComentarios.style.display === "none" ? "block" : "none";
+            });
+        });
+
+        // Adicionar novos comentários à lista dinamicamente
+        function adicionarComentario(event, formulario) {
+            event.preventDefault(); 
+            const inputs = formulario.querySelectorAll("input, textarea");
+            const nome = inputs[0].value;
+            const texto = inputs[1].value;
+
+            const artigo = formulario.closest("article");
+            const listaComentarios = artigo.querySelector(".comments-list");
+            const contadorTexto = artigo.querySelector(".comment-count");
+
+            const novoComentario = document.createElement("div");
+            novoComentario.classList.add("comment-item");
+            novoComentario.innerHTML = `<strong>${nome}:</strong> <span>${texto}</span>`;
+
+            listaComentarios.appendChild(novoComentario);
+            contadorTexto.textContent = parseInt(contadorTexto.textContent) + 1;
+            formulario.reset();
+        }
+
+        // Alternador de Modo Claro e Escuro (Inicia em Escuro padrão)
+        const toggleBtn = document.getElementById("toggleTheme");
+        document.documentElement.setAttribute("data-theme", "dark");
+        
+        toggleBtn.addEventListener("click", () => {
+            const currentTheme = document.documentElement.getAttribute("data-theme");
+            if (currentTheme === "dark") {
+                document.documentElement.setAttribute("data-theme", "light");
+                toggleBtn.textContent = "🌙 Modo Escuro";
+            } else {
+                document.documentElement.setAttribute("data-theme", "dark");
+                toggleBtn.textContent = "☀️ Modo Claro";
+            }
+        });
+    </script>
+</body>
+  </html>
